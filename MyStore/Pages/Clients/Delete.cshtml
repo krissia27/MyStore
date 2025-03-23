@@ -5,7 +5,7 @@
     {
         String? id = Request.Query["id"];
 
-        string connectionString = "Data Source=krissia\\sqlexpress;Initial Catalog=mystore;Trusted_Connection=True;";
+        String connectionString="Data Source=.\\sqlexpress;Initial Catalog=mystore;Integrated Security=True;TrustServerCertificate=True";
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             connection.Open();

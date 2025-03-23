@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
@@ -23,10 +22,8 @@ namespace MyStore.Pages.Clients
             clientInfo.phone = Request.Form["phone"];
             clientInfo.address = Request.Form["address"];
 
-            if (string.IsNullOrEmpty(clientInfo?.name) ||
-                  string.IsNullOrEmpty(clientInfo?.email) ||
-                  string.IsNullOrEmpty(clientInfo?.phone) ||
-                  string.IsNullOrEmpty(clientInfo?.address))
+            if (clientInfo.name.Length == 0 || clientInfo.email.Length == 0
+                || clientInfo.phone.Length == 0 || clientInfo.address.Length == 0)
             {
                 errorMessage = "All the fields are required";
                 return;
@@ -34,11 +31,11 @@ namespace MyStore.Pages.Clients
             //save the new client into the database
             try
             {
-                string connectionString = @"Server=krissia\sqlexpress;Database=mystore;Trusted_Connection=True;";
+                String connectionString = "Data Source=.\\sqlexpress;Initial Catalog=mystore;Integrated Security=True;TrustServerCertificate=True";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "INSERT INTO clients " +
+                    String sql = "INSERT INTO clients " +
                         "(name, email, phone, address) VALUES " +
                         "(@name, @email, @phone, @address);";
 
@@ -66,43 +63,4 @@ namespace MyStore.Pages.Clients
         }
     }
 }
-=======
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace MyStore.Pages.Clients
-{
-    public class CreateModel : PageModel
-    {
-        public ClientInfo clientInfo = new ClientInfo();
-
-        public String errorMessage = "";
-        public String successMessage = "";
-        public void OnGet()
-        {
-        }
-
-        public void OnPost()
-
-        {
-            clientInfo.name = Request.Form["name"];
-            clientInfo.email = Request.Form["email"];
-            clientInfo.phone = Request.Form["phone"];
-            clientInfo.address = Request.Form["address"];
-
-
-
-            if (clientInfo.name.Length == 0 || clientInfo.email.Length == 0 ||
-                clientInfo.phone.Length == 0 || clientInfo.address.Length == 0)
-            {
-                errorMessage = "All the fields are requiered";
-                return;
-            }
-            //save the new client into the database
-
-            clientInfo.name = ""; clientInfo.email = ""; clientInfo.phone = ""; clientInfo.address = "";
-            successMessage = "New Client Added Correctly";
-        }
-    }
-}
->>>>>>> 512fbf5aad0ef9de47c49b00035527426a14fb4b

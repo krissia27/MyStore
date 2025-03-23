@@ -16,10 +16,10 @@ namespace MyStore.Pages.Clients
 
         public void OnGet()
         {
-            string? id = Request.Query["id"];
+            String id = Request.Query["id"];
             try
             {
-                String connectionString = "Data Source=krissia\\sqlexpress;Initial Catalog=mystore;Trusted_Connection=True;";
+                String connectionString = "Data Source=.\\sqlexpress;Initial Catalog=mystore;Integrated Security=True;TrustServerCertificate=True;";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -55,17 +55,15 @@ namespace MyStore.Pages.Clients
             clientInfo.phone = Request.Form["phone"];
             clientInfo.address = Request.Form["address"];
 
-            if (string.IsNullOrEmpty(clientInfo?.name) ||
-                  string.IsNullOrEmpty(clientInfo?.email) ||
-                  string.IsNullOrEmpty(clientInfo?.phone) ||
-                  string.IsNullOrEmpty(clientInfo?.address))
+            if (clientInfo.name.Length == 0 || clientInfo.email.Length == 0 
+                || clientInfo.phone.Length == 0 || clientInfo.address.Length == 0)
             {
                 errorMessage = "All fields are requiered";
                 return;
             }
             try
             {
-                String connectionString = "Data Source=krissia\\sqlexpress;Initial Catalog=mystore;Trusted_Connection=True;";
+                String connectionString = "Data Source=.\\sqlexpress;Initial Catalog=mystore;Integrated Security=True;TrustServerCertificate=True";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
